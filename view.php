@@ -57,19 +57,18 @@
     //etherpad_activate_session();
 
 // Initialize $PAGE, compute blocks
+    
     $PAGE->set_url('/mod/etherpad/view.php', array('id' => $id));
+    
+    $PAGE->requires->js('/mod/etherpad/js/jquery.min.js', true);
+    $PAGE->requires->js('/mod/etherpad/js/etherpad.js', true);
     
     $title = $course->shortname . ': ' . format_string($etherpad->name);
     $PAGE->set_title($title);
     $PAGE->set_heading($course->fullname);
-
+    
     echo $OUTPUT->header();
     
-    echo '
-    <script src="js/jquery.min.js"></script>
-    <script src="js/etherpad.js"></script>
-    ';
-
 /// Print the main part of the page
     
     echo $OUTPUT->box_start('generalbox');
@@ -84,13 +83,11 @@
     
     $pname = etherpad_pad_prefix().$cm->instance;
     
-    echo "
-    
-    <script type=\"text/javascript\">
-$(document).ready(function() {
-    $('#ePad').pad({'host': '{$etherpadcfg->etherpad_baseurl}', 'padId':'{$pname}', 'baseUrl': '/p/', 'showChat': true, 'userName': '{$USER->firstname} {$USER->lastname}','showControls': true,'showLineNumbers': true, 'height': 500});
-});
-</script>";
+    echo "<script type=\"text/javascript\">
+    jQuery(document).ready(function() {
+        jQuery('#ePad').pad({'host': '{$etherpadcfg->etherpad_baseurl}', 'padId':'{$pname}', 'baseUrl': '/p/', 'showChat': true, 'userName': '{$USER->firstname} {$USER->lastname}','showControls': true,'showLineNumbers': true, 'height': 500});
+    });
+    </script>";
     
     echo '<div id="ePad"></div>';
     

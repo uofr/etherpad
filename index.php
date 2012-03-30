@@ -27,17 +27,12 @@
     
     echo $OUTPUT->header();
     
-    
-    $timenow = time();
-    
     echo "<br />";
     
     print_simple_box_start('center', '500', '#ffffff', 10); 
 
     foreach ($displays as $display) {
-
         echo '<a href="view.php?id='.$display->coursemodule.'">'.$display->name.'</a><br />';
-
     }
 
     print_simple_box_end();
