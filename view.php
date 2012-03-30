@@ -1,4 +1,4 @@
-<?PHP  // $Id: view.php,v 1.0 2012/03/28 18:30:00 moodler Exp $
+<?PHP  // $Id: view.php,v 1.0 2012/03/28 18:30:00 Serafim Panov Exp $
 
 /// This page prints a particular instance of etherpad
 /// (Replace etherpad with the name of your module)

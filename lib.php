@@ -1,4 +1,4 @@
-<?PHP  // $Id: lib.php,v 1.0 2012/03/28 18:30:00 gustav_delius Exp $
+<?PHP  // $Id: lib.php,v 1.0 2012/03/28 18:30:00 Serafim Panov Exp $
 
 
 $etherpadcfg = get_config('etherpad');
