@@ -16,15 +16,13 @@ function etherpad_add_instance($etherpad) {
     
     $id = $DB->insert_record("etherpad", $etherpad);
 
-    unset($etherpad);
     $etherpadcfg = get_config('etherpad');
-
-    require_once("etherpad-lite-client.php");
-    
     $pprefix = etherpad_pad_prefix();
     
+    require_once("etherpad-lite-client.php");
+    
     $epad = new EtherpadLiteClient($etherpadcfg->etherpad_apikey,$etherpadcfg->etherpad_baseurl.'/api');
-    $epad->createPad($pprefix.$id, $etherpad->intro);
+    $epad->createPad($pprefix.$id, strip_tags($etherpad->intro));
 
     return $id;
 }
@@ -53,11 +51,10 @@ function etherpad_delete_instance($id) {
         $result = false;
     }
     
-    require_once("etherpad-lite-client.php");
-    
+    $etherpadcfg = get_config('etherpad');
     $pprefix = etherpad_pad_prefix();
     
-    $etherpadcfg = get_config('etherpad');
+    require_once("etherpad-lite-client.php");
     
     $epad = new EtherpadLiteClient($etherpadcfg->etherpad_apikey,$etherpadcfg->etherpad_baseurl.'/api');
     $epad->deletePad($pprefix.$etherpad->id);
