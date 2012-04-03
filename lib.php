@@ -1,4 +1,4 @@
-<?PHP  // $Id: lib.php,v 1.0 2012/03/28 18:30:00 Serafim Panov Exp $
+<?PHP  // $Id: lib.php,v 1.0 2012/03/28 18:30:00 Serafim Panov Exp $ 
 
 
 $etherpadcfg = get_config('etherpad');
@@ -13,16 +13,16 @@ function etherpad_add_instance($etherpad) {
     global $CFG, $USER, $DB;
 
     $etherpad->timemodified = time();
+    $etherpad->padname = etherpad_padname();
     
     $id = $DB->insert_record("etherpad", $etherpad);
 
     $etherpadcfg = get_config('etherpad');
-    $pprefix = etherpad_pad_prefix();
     
     require_once("etherpad-lite-client.php");
     
     $epad = new EtherpadLiteClient($etherpadcfg->etherpad_apikey,$etherpadcfg->etherpad_baseurl.'/api');
-    $epad->createPad($pprefix.$id, strip_tags($etherpad->intro));
+    $epad->createPad($etherpad->padname, strip_tags($etherpad->intro));
 
     return $id;
 }
@@ -52,12 +52,11 @@ function etherpad_delete_instance($id) {
     }
     
     $etherpadcfg = get_config('etherpad');
-    $pprefix = etherpad_pad_prefix();
-    
+
     require_once("etherpad-lite-client.php");
     
     $epad = new EtherpadLiteClient($etherpadcfg->etherpad_apikey,$etherpadcfg->etherpad_baseurl.'/api');
-    $epad->deletePad($pprefix.$etherpad->id);
+    $epad->deletePad($etherpad->padname);
 
     return $result;
 }
@@ -110,12 +109,6 @@ function etherpad_supports($feature) {
     }
 }
 
-function etherpad_pad_prefix(){
-  global $CFG;
-  
-  return str_replace(array("http://", "/", "."), "", $CFG->wwwroot);
-}
-
 
 function etherpad_activate_session(){
     global $USER;
@@ -140,5 +133,23 @@ function etherpad_activate_session(){
     $sessionID = $epad->createSession($groupID, $authorID, $validUntil);
     $sessionID = $sessionID->sessionID;
     setcookie("sessionID",$sessionID); 
+}
+
+function etherpad_padname ($length = 8){
+    $password = "";
+    $possible = "2346789bcdfghjkmnpqrtvwxyzBCDFGHJKLMNPQRTVWXYZ";
+    $maxlength = strlen($possible);
+    if ($length > $maxlength) {
+      $length = $maxlength;
+    }
+    $i = 0; 
+    while ($i < $length) { 
+      $char = substr($possible, mt_rand(0, $maxlength-1), 1);
+      if (!strstr($password, $char)) { 
+        $password .= $char;
+        $i++;
+      }
+    }
+    return $password;
 }
 

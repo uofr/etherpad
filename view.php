@@ -1,4 +1,4 @@
-<?PHP  // $Id: view.php,v 1.0 2012/03/28 18:30:00 Serafim Panov Exp $
+<?PHP  // $Id: view.php,v 1.0 2012/03/28 18:30:00 Serafim Panov Exp $ 
 
 /// This page prints a particular instance of etherpad
 /// (Replace etherpad with the name of your module)
@@ -81,11 +81,9 @@
     
     echo "<div align=center>";
     
-    $pname = etherpad_pad_prefix().$cm->instance;
-    
     echo "<script type=\"text/javascript\">
     jQuery(document).ready(function() {
-        jQuery('#ePad').pad({'host': '{$etherpadcfg->etherpad_baseurl}', 'padId':'{$pname}', 'baseUrl': '/p/', 'showChat': true, 'userName': '{$USER->firstname} {$USER->lastname}','showControls': true,'showLineNumbers': true, 'height': 500});
+        jQuery('#ePad').pad({'host': '{$etherpadcfg->etherpad_baseurl}', 'padId':'{$etherpad->padname}', 'baseUrl': '/p/', 'showChat': true, 'userName': '{$USER->firstname} {$USER->lastname}','showControls': true,'showLineNumbers': true, 'height': 500});
     });
     </script>";
     
