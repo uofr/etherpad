@@ -41,16 +41,6 @@
 
 /// Print the page header
 
-    $stretherpads = get_string("modulenameplural", "etherpad");
-    $stretherpad  = get_string("modulename", "etherpad");
-
-    
-    if ($course->category) {
-        $navigation = "<a href=\"../../course/view.php?id=$course->id\">$course->shortname</a> ->";
-    } else {
-        $navigation = '';
-    }
-    
     add_to_log($course->id, "etherpad", "view", "view.php?id=$id", "$cm->instance");
     
 // Activate epad user
