@@ -1,7 +1,7 @@
 <?php
 
 
-function xmldb_forum_upgrade($oldversion) {
+function xmldb_etherpad_upgrade($oldversion) {
     global $CFG, $DB, $OUTPUT;
 
     return true;
